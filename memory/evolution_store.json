@@ -1,0 +1,41 @@
+{
+  "version": "1.0",
+  "total_runs_recorded": 2,
+  "historical_failure_counts": {
+    "ACCURACY_AND_GROUNDING": 3,
+    "BEGINNER_VOCABULARY": 0,
+    "ANALOGY_AND_EXAMPLE": 0,
+    "NO_UNEXPLAINED_JARGON": 0,
+    "KEY_POINTS_COVERAGE": 0,
+    "COHERENT_TEACHING_FLOW": 3
+  },
+  "learned_guardrails": [
+    "Rule 1: Never introduce 'vector database' without immediately explaining it as 'a smart digital filing cabinet'.",
+    "Rule 2: Keep average sentence length under 15 words for regional-medium learners.",
+    "Rule 3: Always carry the Indian everyday analogy (e.g. open-book exam) into the 'How it works' technical steps."
+  ],
+  "run_history": [
+    {
+      "timestamp": "2026-11-08T15:16:37.704568",
+      "topic": "Introduction to RAG",
+      "total_iterations": 2,
+      "final_passed": true,
+      "failures_encountered": [
+        "ACCURACY_AND_GROUNDING",
+        "COHERENT_TEACHING_FLOW"
+      ]
+    },
+    {
+      "timestamp": "2026-11-08T15:17:24.089134",
+      "topic": "Introduction to RAG",
+      "total_iterations": 3,
+      "final_passed": true,
+      "failures_encountered": [
+        "ACCURACY_AND_GROUNDING",
+        "COHERENT_TEACHING_FLOW",
+        "ACCURACY_AND_GROUNDING",
+        "COHERENT_TEACHING_FLOW"
+      ]
+    }
+  ]
+}
