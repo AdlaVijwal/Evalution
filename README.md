@@ -88,8 +88,8 @@ The evaluator implements a **dual-engine architecture**: combining deterministic
 ```
 ├── run_pipeline.py                 # Main CLI production entrypoint
 ├── test_deliberate_error.py        # Dedicated demonstration script for Loom video
+├── app.py                          # Interactive Streamlit Web Dashboard
 ├── final_lesson_document.md        # Publication-ready approved lesson & audit scorecard
-├── loom_script.md                  # Comprehensive 15-20 min Loom video recording script
 ├── requirements.txt                # Project dependencies
 ├── .env.example                    # Environment configuration template
 │
@@ -193,7 +193,7 @@ source venv/bin/activate
 python3 -m unittest discover -s tests -v
 ```
 
-All 7 test cases covering syllable counting, jargon detection, readability scoring, zero partial credit, LangGraph cycles, and memory evolution execute and pass deterministically.
+All 8 test cases covering syllable counting, jargon detection, readability scoring, zero partial credit, LangGraph cycles, deliberate error rejection, and memory evolution execute and pass deterministically.
 
 ---
 
@@ -202,5 +202,5 @@ All 7 test cases covering syllable counting, jargon detection, readability scori
 1. **GitHub Repository:** Contains complete modular code, LangGraph cyclic workflow, test harness, and setup instructions.
 2. **Final Lesson Content:** Located in [`final_lesson_document.md`](final_lesson_document.md) (ready for Google Docs / Notion export).
 3. **Audit & Rejection Log:** Located in [`logs/rejection_log_summary.json`](logs/rejection_log_summary.json).
-4. **Video Walkthrough Script:** Step-by-step 15–20 minute recording script located in [`loom_script.md`](loom_script.md).
+4. **Loom Video Demonstration:** 15–20 minute walkthrough covering end-to-end execution, deliberate error catching, and architecture walkthrough.
 
