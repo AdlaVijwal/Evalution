@@ -114,7 +114,7 @@ class LLMClient:
 
     def _mock_generate(self, system_prompt: str, user_prompt: str) -> str:
         """High-fidelity mock generator for offline testing or fallback."""
-        if "evaluator" in system_prompt.lower() or "rubric" in system_prompt.lower():
+        if any(term in system_prompt.lower() for term in ["evaluator", "rubric", "auditor", "checkpoint", "checkpoints"]):
             return json.dumps({
                 "ACCURACY_AND_GROUNDING": {
                     "passed": True,

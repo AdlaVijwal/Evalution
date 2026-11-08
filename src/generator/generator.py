@@ -63,12 +63,12 @@ class LessonGenerator:
             temperature=0.6 if iteration == 1 else 0.4
         )
 
-        title = payload.get("title", f"Introduction to {topic}")
-        hook = payload.get("hook_and_analogy", "")
-        what_is = payload.get("what_is_it", "")
-        why_matters = payload.get("why_it_matters", "")
-        how_works = payload.get("how_it_works", "")
-        takeaway = payload.get("quick_summary_takeaway", "")
+        title = payload.get("title") or payload.get("Title") or f"Introduction to {topic}"
+        hook = payload.get("hook_and_analogy") or payload.get("hook") or payload.get("analogy") or ""
+        what_is = payload.get("what_is_it") or payload.get("what_is") or payload.get("definition") or ""
+        why_matters = payload.get("why_it_matters") or payload.get("why_matters") or payload.get("importance") or ""
+        how_works = payload.get("how_it_works") or payload.get("how_works") or payload.get("mechanics") or ""
+        takeaway = payload.get("quick_summary_takeaway") or payload.get("takeaway") or payload.get("summary") or ""
 
         # Compile cohesive markdown presentation
         full_md = f"""# {title}

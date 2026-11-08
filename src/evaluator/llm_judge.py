@@ -92,6 +92,9 @@ Remember: Be uncompromising. Binary PASS (true) or FAIL (false) only. No partial
             temperature=0.1  # Low temperature for deterministic grading
         )
 
+        # Normalize keys to uppercase for bulletproof case-insensitivity
+        normalized_res = {str(k).upper(): v for k, v in raw_res.items()}
+
         results = []
         mapping = {
             "ACCURACY_AND_GROUNDING": CheckpointEnum.ACCURACY_AND_GROUNDING,
@@ -100,11 +103,16 @@ Remember: Be uncompromising. Binary PASS (true) or FAIL (false) only. No partial
         }
 
         for key, enum_val in mapping.items():
-            check_data = raw_res.get(key, {})
-            passed = bool(check_data.get("passed", False))
-            reasoning = check_data.get("reasoning", "No explicit reasoning provided.")
-            snippet = check_data.get("offending_snippet")
-            action = check_data.get("prescriptive_action")
+            check_data = normalized_res.get(key, {})
+            if isinstance(check_data, dict):
+                norm_check = {str(k).lower(): v for k, v in check_data.items()}
+            else:
+                norm_check = {}
+
+            passed = bool(norm_check.get("passed", False))
+            reasoning = norm_check.get("reasoning", "No explicit reasoning provided.")
+            snippet = norm_check.get("offending_snippet")
+            action = norm_check.get("prescriptive_action")
 
             results.append(
                 RubricCheckResult(
