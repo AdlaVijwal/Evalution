@@ -33,7 +33,8 @@ LOGS_DIR = BASE_DIR / "logs"
 REJECTION_LOG_PATH = LOGS_DIR / "rejection_log_summary.json"
 RUN_TRACE_LOG_PATH = LOGS_DIR / "pipeline_run_trace.log"
 
-OUTPUT_DOCUMENT_PATH = BASE_DIR / "final_lesson_document.md"
+OUTPUT_DIR = BASE_DIR / "personal_submission_notes"
+OUTPUT_DOCUMENT_PATH = (OUTPUT_DIR if OUTPUT_DIR.exists() else BASE_DIR) / "final_lesson_document.md"
 
 # Target Audience Persona Definition
 TARGET_AUDIENCE = {

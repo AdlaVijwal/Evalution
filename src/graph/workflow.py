@@ -34,18 +34,15 @@ class ContentGraphOrchestrator:
     def _build_graph(self) -> StateGraph:
         builder = StateGraph(ContentState)
 
-        # Register nodes
         builder.add_node("generate", self.generate_node)
         builder.add_node("evaluate", self.evaluate_node)
         builder.add_node("prepare_retry", self.prepare_retry_node)
         builder.add_node("finalize", self.finalize_node)
         builder.add_node("terminate_max_retries", self.terminate_max_retries_node)
 
-        # Set edges
         builder.add_edge(START, "generate")
         builder.add_edge("generate", "evaluate")
 
-        # Conditional routing after evaluation
         builder.add_conditional_edges(
             "evaluate",
             self.route_evaluation_verdict,
@@ -63,7 +60,6 @@ class ContentGraphOrchestrator:
         return builder.compile()
 
     def generate_node(self, state: ContentState) -> Dict[str, Any]:
-        """Node 1: Generate a lesson draft."""
         iteration = state["iteration"] + 1
         topic = state["topic"]
         rules = state.get("learned_evolution_rules", [])
@@ -79,7 +75,6 @@ class ContentGraphOrchestrator:
         if rules:
             ConsoleDisplay.print_evolution_notice(rules)
 
-        # Only inject deliberate error on iteration 1 if set
         delib_error = state.get("deliberate_error_type") if iteration == 1 else None
 
         draft = self.generator.generate_draft(
@@ -97,7 +92,6 @@ class ContentGraphOrchestrator:
         }
 
     def evaluate_node(self, state: ContentState) -> Dict[str, Any]:
-        """Node 2: Evaluate the current draft against all 6 hard checkpoints."""
         draft = state["current_draft"]
         iteration = state["iteration"]
 
@@ -109,7 +103,6 @@ class ContentGraphOrchestrator:
         report = self.evaluator.evaluate(draft)
         ConsoleDisplay.print_evaluation_report(report, iteration)
 
-        # Update lists immutably
         draft_hist = list(state.get("draft_history", []))
         draft_hist.append(draft)
 
@@ -126,19 +119,16 @@ class ContentGraphOrchestrator:
     def route_evaluation_verdict(
         self, state: ContentState
     ) -> Literal["pass", "retry", "halt_max_retries"]:
-        """Conditional routing logic."""
         latest_report = state["evaluation_reports"][-1]
         if latest_report.overall_passed:
             return "pass"
 
-        # Check if we still have retry budget (max 1-2 retries)
         if state["iteration"] <= state["max_retries"]:
             return "retry"
 
         return "halt_max_retries"
 
     def prepare_retry_node(self, state: ContentState) -> Dict[str, Any]:
-        """Node 3: Log rejection reasons and prepare explicit guidance for retry."""
         iteration = state["iteration"]
         latest_report = state["evaluation_reports"][-1]
 
@@ -165,23 +155,21 @@ class ContentGraphOrchestrator:
         }
 
     def finalize_node(self, state: ContentState) -> Dict[str, Any]:
-        """Node 4: Content passed all checkpoints. Finalize deliverables and update memory."""
         final_draft = state["current_draft"]
         ConsoleDisplay.print_stage("SHIP GATE APPROVED", "Saving publication-ready deliverables")
         ConsoleDisplay.print_lesson_preview(final_draft)
 
-        # 1. Write final lesson markdown document
+        OUTPUT_DOCUMENT_PATH.parent.mkdir(parents=True, exist_ok=True)
         with open(OUTPUT_DOCUMENT_PATH, "w", encoding="utf-8") as f:
             f.write(final_draft.full_content_markdown)
         logger.info(f"Saved approved lesson to {OUTPUT_DOCUMENT_PATH}")
 
-        # 2. Write structured rejection log
+        REJECTION_LOG_PATH.parent.mkdir(parents=True, exist_ok=True)
         rejection_summary = [entry.model_dump() for entry in state["rejection_log"]]
         with open(REJECTION_LOG_PATH, "w", encoding="utf-8") as f:
             json.dump(rejection_summary, f, indent=2)
         logger.info(f"Saved rejection log to {REJECTION_LOG_PATH}")
 
-        # 3. Update persistent memory
         self.memory.record_run(
             topic=state["topic"],
             total_iterations=state["iteration"],
@@ -195,10 +183,10 @@ class ContentGraphOrchestrator:
         }
 
     def terminate_max_retries_node(self, state: ContentState) -> Dict[str, Any]:
-        """Node 5: Max retries exceeded. Terminate cleanly and log failure."""
         logger.warning(f"Maximum retry limit ({state['max_retries']}) reached without full approval.")
         ConsoleDisplay.print_stage("PIPELINE HALT", "Max retry budget exhausted. Loop terminated safely.")
 
+        REJECTION_LOG_PATH.parent.mkdir(parents=True, exist_ok=True)
         rejection_summary = [entry.model_dump() for entry in state["rejection_log"]]
         with open(REJECTION_LOG_PATH, "w", encoding="utf-8") as f:
             json.dump(rejection_summary, f, indent=2)

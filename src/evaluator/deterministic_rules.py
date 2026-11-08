@@ -80,7 +80,6 @@ def run_deterministic_evaluations(
     """Execute all deterministic, non-LLM checks."""
     results = []
 
-    # 1. Vocabulary & Readability Check
     fk_grade, reading_ease, num_sentences, num_words = calculate_readability_metrics(text)
     avg_words_per_sentence = round(num_words / num_sentences, 1)
 
@@ -101,7 +100,6 @@ def run_deterministic_evaluations(
         )
     )
 
-    # 2. Jargon Check
     no_jargon, flagged_terms = check_forbidden_jargon(text)
     jargon_reasoning = (
         "Zero unexplained jargon detected. All technical terms are grounded." if no_jargon
@@ -117,7 +115,6 @@ def run_deterministic_evaluations(
         )
     )
 
-    # 3. Structural Key Points Coverage (Deterministic check for non-empty required sections)
     sections_present = {
         "What it is": len(what_is_it.strip()) > 50,
         "Why it matters": len(why_it_matters.strip()) > 50,

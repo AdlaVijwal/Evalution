@@ -30,22 +30,17 @@ class LessonGenerator:
         """Generate a complete lesson draft, integrating feedback or deliberate errors."""
         system_prompt = SYSTEM_GENERATOR_BASE
 
-        # 1. Inject learned evolution rules from long-term memory
         if learned_rules:
             rules_block = "\n\nCRITICAL HISTORICAL LESSONS LEARNED (Self-Evolving Memory):\n"
             for rule in learned_rules:
                 rules_block += f"- ⚡ {rule}\n"
             system_prompt += rules_block
 
-        # 2. Prepare user prompt
         user_prompt = f"Topic to teach: '{topic}'. Remember: The learner starts from zero."
 
-        # 3. Handle deliberate error injection for test/demo mode
         if deliberate_error_type and deliberate_error_type in DELIBERATE_ERROR_INJECTION_PROMPTS:
             logger.warning(f"Injecting deliberate error mode: {deliberate_error_type}")
             user_prompt += "\n" + DELIBERATE_ERROR_INJECTION_PROMPTS[deliberate_error_type]
-
-        # 4. Handle refinement iteration feedback
         elif previous_report and not previous_report.overall_passed:
             failed_str = ", ".join([c.value for c in previous_report.failed_checkpoints])
             reasons_str = "\n".join([f"• {r}" for r in previous_report.rejection_reasons])

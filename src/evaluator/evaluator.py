@@ -25,7 +25,6 @@ class ContentEvaluator:
         """Run all 6 checkpoints across deterministic and LLM engines."""
         logger.info(f"Auditing Lesson Draft v{draft.iteration} across all 6 rubric dimensions...")
 
-        # 1. Deterministic code-based checks
         det_results = run_deterministic_evaluations(
             text=draft.full_content_markdown,
             what_is_it=draft.what_is_it,
@@ -33,18 +32,13 @@ class ContentEvaluator:
             how_it_works=draft.how_it_works,
             hook_and_analogy=draft.hook_and_analogy
         )
-
-        # 2. Semantic LLM-as-a-Judge checks
         llm_results = self.llm_judge.evaluate_draft(draft)
 
-        # Combine all 6 checks
         all_checks: List[RubricCheckResult] = det_results + llm_results
 
-        # Ensure order matches CheckpointEnum
         enum_order = list(CheckpointEnum)
         all_checks.sort(key=lambda c: enum_order.index(c.checkpoint))
 
-        # Check for any failures - STRICT ZERO PARTIAL CREDIT
         failed_checks = [c.checkpoint for c in all_checks if not c.passed]
         overall_passed = len(failed_checks) == 0
 
