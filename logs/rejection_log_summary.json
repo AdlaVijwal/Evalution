@@ -6,11 +6,11 @@
       "COHERENT_TEACHING_FLOW"
     ],
     "why_it_failed": [
-      "[ACCURACY_AND_GROUNDING] The explanation does not clearly convey that RAG inserts fresh context into the prompt before generating the answer.",
-      "[COHERENT_TEACHING_FLOW] The flow lacks a clear progression from the hook to the definition and mechanics, making it feel disjointed."
+      "[ACCURACY_AND_GROUNDING] The explanation of RAG lacks clarity on how external documents are searched and injected into the prompt.",
+      "[COHERENT_TEACHING_FLOW] The flow is disrupted as it jumps from the analogy to the definition without addressing the problem of normal AI struggles."
     ],
-    "what_was_changed_on_retry": "For ACCURACY_AND_GROUNDING: Explicitly state that RAG searches external documents, inserts that context into the prompt, and then generates the answer.\nFor COHERENT_TEACHING_FLOW: Ensure a clear transition from the hook to the problem, then to the definition, followed by mechanics, and finally a summary.",
-    "timestamp": "2026-11-08T15:17:03.593827"
+    "what_was_changed_on_retry": "For ACCURACY_AND_GROUNDING: Clearly explain that RAG searches external documents, inserts that context into the prompt, and then generates the answer.\nFor COHERENT_TEACHING_FLOW: Introduce a section explaining why normal AI struggles before defining RAG.",
+    "timestamp": "2026-11-08T15:21:30.766476"
   },
   {
     "iteration": 2,
@@ -19,10 +19,10 @@
       "COHERENT_TEACHING_FLOW"
     ],
     "why_it_failed": [
-      "[ACCURACY_AND_GROUNDING] The explanation of RAG is vague and does not clearly convey the process of injecting retrieved information into the prompt.",
-      "[COHERENT_TEACHING_FLOW] The flow lacks a clear progression from the hook to the definition and mechanics, making it feel disjointed."
+      "[ACCURACY_AND_GROUNDING] The explanation lacks clarity on how the retrieved information is injected into the prompt.",
+      "[COHERENT_TEACHING_FLOW] The flow is somewhat disjointed, particularly in the transition from the definition to the mechanics."
     ],
-    "what_was_changed_on_retry": "For ACCURACY_AND_GROUNDING: Clarify that RAG involves searching external documents, inserting that context into the prompt, and then generating the answer.\nFor COHERENT_TEACHING_FLOW: Ensure a logical progression from engaging hook to problem, clear definition, step-by-step mechanics, and a memorable summary.",
-    "timestamp": "2026-11-08T15:17:13.424556"
+    "what_was_changed_on_retry": "For ACCURACY_AND_GROUNDING: Clearly explain that RAG inserts the retrieved information into the prompt before generating the answer.\nFor COHERENT_TEACHING_FLOW: Ensure a smoother transition from the definition to the mechanics, clearly linking each step to the previous one.",
+    "timestamp": "2026-11-08T15:21:42.746532"
   }
 ]

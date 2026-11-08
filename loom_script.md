@@ -132,3 +132,4 @@
 1. **Camera Position:** Keep your face clearly visible in a circular bubble or side panel (assessment requires a "face-visible walkthrough").
 2. **Terminal Clarity:** Use a clean, dark-themed terminal with text zoomed in (Command + '+') so the Rich tables and colored PASS/FAIL badges pop.
 3. **Pacing:** Speak at a natural, enthusiastic pace. Follow the timing marks above to stay comfortably between 15 and 20 minutes.
+

@@ -1,13 +1,13 @@
 {
   "version": "1.0",
-  "total_runs_recorded": 2,
+  "total_runs_recorded": 3,
   "historical_failure_counts": {
-    "ACCURACY_AND_GROUNDING": 3,
+    "ACCURACY_AND_GROUNDING": 6,
     "BEGINNER_VOCABULARY": 0,
-    "ANALOGY_AND_EXAMPLE": 0,
+    "ANALOGY_AND_EXAMPLE": 1,
     "NO_UNEXPLAINED_JARGON": 0,
     "KEY_POINTS_COVERAGE": 0,
-    "COHERENT_TEACHING_FLOW": 3
+    "COHERENT_TEACHING_FLOW": 6
   },
   "learned_guardrails": [
     "Rule 1: Never introduce 'vector database' without immediately explaining it as 'a smart digital filing cabinet'.",
@@ -34,6 +34,21 @@
         "ACCURACY_AND_GROUNDING",
         "COHERENT_TEACHING_FLOW",
         "ACCURACY_AND_GROUNDING",
+        "COHERENT_TEACHING_FLOW"
+      ]
+    },
+    {
+      "timestamp": "2026-11-08T15:21:54.012358",
+      "topic": "Introduction to RAG",
+      "total_iterations": 3,
+      "final_passed": false,
+      "failures_encountered": [
+        "ACCURACY_AND_GROUNDING",
+        "COHERENT_TEACHING_FLOW",
+        "ACCURACY_AND_GROUNDING",
+        "COHERENT_TEACHING_FLOW",
+        "ACCURACY_AND_GROUNDING",
+        "ANALOGY_AND_EXAMPLE",
         "COHERENT_TEACHING_FLOW"
       ]
     }

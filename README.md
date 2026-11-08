@@ -203,3 +203,4 @@ All 7 test cases covering syllable counting, jargon detection, readability scori
 2. **Final Lesson Content:** Located in [`final_lesson_document.md`](final_lesson_document.md) (ready for Google Docs / Notion export).
 3. **Audit & Rejection Log:** Located in [`logs/rejection_log_summary.json`](logs/rejection_log_summary.json).
 4. **Video Walkthrough Script:** Step-by-step 15–20 minute recording script located in [`loom_script.md`](loom_script.md).
+
